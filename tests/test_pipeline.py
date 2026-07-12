@@ -85,3 +85,32 @@ def test_i4_every_decision_has_a_gate_result():
     decision = run_case("t6", _customer(), _merchant(), _facts(), client)
     assert decision.gate_result is not None
     assert len(decision.gate_result.checks) >= 10
+
+
+def _judge_aware_fn(good_scores: bool):
+    judge_json = (
+        '{"register_match": 5, "firmness_accuracy": 4, "brand_voice": 5, "dignity": %d, "rationale": "ok"}'
+        % (5 if good_scores else 1)
+    )
+
+    def fn(system: str, user: str, temperature: float) -> str:
+        return judge_json if "reviewer" in system else _GOOD_TEXT
+
+    return fn
+
+
+def test_judge_enabled_appends_j_checks_and_passes():
+    client = MockLLMClient(fn=_judge_aware_fn(good_scores=True))
+    decision = run_case("t7", _customer(), _merchant(), _facts(), client, judge_enabled=True)
+    assert decision.source == "generated"
+    assert decision.gate_result.passed
+    j_ids = {c.check_id for c in decision.gate_result.checks if c.check_id.startswith("J")}
+    assert j_ids == {"J1", "J2", "J3", "J4"}
+    assert decision.gate_result.judge_scores is not None
+    assert decision.model_calls == 2  # one generate + one judge
+
+
+def test_judge_low_dignity_routes_to_fallback():
+    client = MockLLMClient(fn=_judge_aware_fn(good_scores=False))
+    decision = run_case("t8", _customer(), _merchant(), _facts(), client, judge_enabled=True)
+    assert decision.source != "generated"  # J4 (dignity) failed, so it left the happy path

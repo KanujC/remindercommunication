@@ -4,12 +4,9 @@ from datetime import date
 from pathlib import Path
 from typing import Literal
 
-from dunning_studio.gates.deterministic import (
-    check_a1_amount, check_a2_due_date, check_a3_account_ref,
-    check_a4_no_unresolved_tokens, check_a5_blocklist, check_a6_disclosure,
-)
+from dunning_studio.gates.deterministic import run_static_checks
 from dunning_studio.injection import build_tokens, inject
-from dunning_studio.schemas import GateCheck, InvoiceFacts
+from dunning_studio.schemas import InvoiceFacts
 
 SEGMENTS = ("reliable", "occasional", "defaulter")
 LOCALES = ("de-DE", "nl-NL", "en-GB", "sv-SE")
@@ -42,17 +39,6 @@ def _sample_facts(locale: str, channel: str, reminder_index: Literal[1, 2, 3]) -
     )
 
 
-def _run_a1_a6(text: str, facts: InvoiceFacts) -> list[GateCheck]:
-    return [
-        check_a1_amount(text, facts),
-        check_a2_due_date(text, facts),
-        check_a3_account_ref(text, facts),
-        check_a4_no_unresolved_tokens(text),
-        check_a5_blocklist(text),
-        check_a6_disclosure(text, facts),
-    ]
-
-
 def validate_all_templates() -> None:
     """Load every (segment, locale, channel) template and assert A1..A6 pass by construction (I5)."""
     for segment in SEGMENTS:
@@ -63,7 +49,7 @@ def validate_all_templates() -> None:
                     facts = _sample_facts(locale, channel, reminder_index)
                     tokens = build_tokens("Sample Customer", "Sample Merchant", facts)
                     text = inject(raw, tokens)
-                    checks = _run_a1_a6(text, facts)
+                    checks = run_static_checks(text, facts)
                     failures = [c for c in checks if not c.passed]
                     if failures:
                         detail = "; ".join(f"{c.check_id}: {c.detail}" for c in failures)

@@ -1,4 +1,4 @@
-# Eval report — 20260712T092059Z
+# Eval report — 20260712T094031Z
 
 > **Mock-mode run.** No live model calls were made; this exercises the harness, gate wiring, and report machinery only. It does not certify tone quality. Run `python eval/run_eval.py --live` with `ANTHROPIC_API_KEY` set for the report that gates a merge per CLAUDE.md I7 / 9.5.
 

@@ -6,13 +6,20 @@ import re
 from pathlib import Path
 
 from dunning_studio.llm import LLMClient
-from dunning_studio.schemas import ToneSpec
+from dunning_studio.schemas import GateCheck, ToneSpec
 
 _PROMPTS_DIR = Path(__file__).parent.parent.parent.parent / "prompts"
 _JUDGE_PROMPT_PATH = _PROMPTS_DIR / "judge_v1.md"
 
 JUDGE_DIMENSIONS = ("register_match", "firmness_accuracy", "brand_voice", "dignity")
 _CODE_FENCE_RE = re.compile(r"^```(?:json)?\s*|\s*```$", re.MULTILINE)
+
+# Rubric v1 gating thresholds (CLAUDE.md 7.2). brand_voice is reported but not gating in v1.
+_GATING_THRESHOLDS = {"register_match": 3, "firmness_accuracy": 3, "dignity": 4}
+# Report ids per dimension (CLAUDE.md 9.3 references the per-check table as "A1..A10, J*").
+_JUDGE_CHECK_IDS = {
+    "register_match": "J1", "firmness_accuracy": "J2", "brand_voice": "J3", "dignity": "J4",
+}
 
 
 def _load_judge_prompt() -> str:
@@ -53,7 +60,23 @@ def parse_judge_response(raw: str) -> dict[str, int] | None:
 
 
 def judge_passes(scores: dict[str, int]) -> bool:
-    return scores["dignity"] >= 4 and scores["firmness_accuracy"] >= 3 and scores["register_match"] >= 3
+    return all(scores[dim] >= threshold for dim, threshold in _GATING_THRESHOLDS.items())
+
+
+def judge_checks(scores: dict[str, int] | None) -> list[GateCheck]:
+    """Turn judge scores into one GateCheck per rubric dimension (J1..J4). A parse failure
+    (scores is None) is itself a single failing judge check, per CLAUDE.md 7.2."""
+    if scores is None:
+        return [GateCheck(check_id="J1", passed=False, detail="judge parse failure")]
+    checks = []
+    for dim in JUDGE_DIMENSIONS:
+        threshold = _GATING_THRESHOLDS.get(dim)
+        if threshold is None:
+            detail, passed = f"{dim}={scores[dim]} (non-gating)", True
+        else:
+            detail, passed = f"{dim}={scores[dim]} (need >= {threshold})", scores[dim] >= threshold
+        checks.append(GateCheck(check_id=_JUDGE_CHECK_IDS[dim], passed=passed, detail=detail))
+    return checks
 
 
 def run_judge(client: LLMClient, final_text: str, tone_spec: ToneSpec) -> dict[str, int] | None:

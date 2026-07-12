@@ -143,6 +143,24 @@ SEVERITY = {
 }
 
 
+def is_hard(check_id: str) -> bool:
+    """Unknown check ids (e.g. judge J*) are treated as hard by default."""
+    return SEVERITY.get(check_id, HARD) == HARD
+
+
+def run_static_checks(text: str, facts: InvoiceFacts) -> list[GateCheck]:
+    """A1..A6: the fact/safety subset every static template must pass by construction (I5).
+    Single source of truth for this subset, shared by the fallback step and startup validation."""
+    return [
+        check_a1_amount(text, facts),
+        check_a2_due_date(text, facts),
+        check_a3_account_ref(text, facts),
+        check_a4_no_unresolved_tokens(text),
+        check_a5_blocklist(text),
+        check_a6_disclosure(text, facts),
+    ]
+
+
 def run_all(
     text: str,
     facts: InvoiceFacts,
@@ -152,12 +170,7 @@ def run_all(
 ) -> list[GateCheck]:
     """Run A1..A10. Always runs all checks (eval-mode semantics); callers short-circuit if needed."""
     return [
-        check_a1_amount(text, facts),
-        check_a2_due_date(text, facts),
-        check_a3_account_ref(text, facts),
-        check_a4_no_unresolved_tokens(text),
-        check_a5_blocklist(text),
-        check_a6_disclosure(text, facts),
+        *run_static_checks(text, facts),
         check_a7_channel_limits(text, facts),
         check_a8_language_match(text, facts),
         check_a9_unauthorised_promise(text),

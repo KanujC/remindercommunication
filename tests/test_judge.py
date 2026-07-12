@@ -1,4 +1,4 @@
-from dunning_studio.gates.judge import judge_passes, parse_judge_response
+from dunning_studio.gates.judge import judge_checks, judge_passes, parse_judge_response
 
 
 def test_parse_plain_json():
@@ -38,3 +38,22 @@ def test_judge_fails_on_low_dignity():
 
 def test_judge_fails_on_low_firmness_accuracy():
     assert not judge_passes({"register_match": 5, "firmness_accuracy": 2, "brand_voice": 5, "dignity": 5})
+
+
+def test_judge_checks_all_pass():
+    checks = judge_checks({"register_match": 5, "firmness_accuracy": 4, "brand_voice": 1, "dignity": 5})
+    assert {c.check_id for c in checks} == {"J1", "J2", "J3", "J4"}
+    assert all(c.passed for c in checks)  # brand_voice=1 is non-gating (J3), so still passes
+
+
+def test_judge_checks_dignity_gates():
+    checks = judge_checks({"register_match": 5, "firmness_accuracy": 5, "brand_voice": 5, "dignity": 3})
+    j4 = next(c for c in checks if c.check_id == "J4")
+    assert not j4.passed
+    assert not all(c.passed for c in checks)
+
+
+def test_judge_checks_parse_failure():
+    checks = judge_checks(None)
+    assert len(checks) == 1
+    assert checks[0].check_id == "J1" and not checks[0].passed
