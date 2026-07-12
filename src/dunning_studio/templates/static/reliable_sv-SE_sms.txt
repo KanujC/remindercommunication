@@ -1,0 +1,1 @@
+Hej {{CUSTOMER_NAME}}, din betalning på {{AMOUNT}}, med förfallodatum {{DUE_DATE}}, är fortfarande obetald. {{DISCLOSURE}} Betala här: {{PAY_LINK}} - {{MERCHANT_NAME}}

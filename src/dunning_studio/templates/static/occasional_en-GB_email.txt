@@ -1,0 +1,8 @@
+Dear {{CUSTOMER_NAME}},
+
+This is a reminder that invoice {{ACCOUNT_REF}} for {{AMOUNT}}, due on {{DUE_DATE}}, has not yet been paid. {{DISCLOSURE}} Please use the link below to pay.
+
+{{PAY_LINK}}
+
+Regards,
+{{MERCHANT_NAME}}

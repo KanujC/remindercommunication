@@ -1,0 +1,8 @@
+Hej {{CUSTOMER_NAME}},
+
+detta är en påminnelse om att fakturan {{ACCOUNT_REF}} på {{AMOUNT}}, med förfallodatum {{DUE_DATE}}, ännu inte är betald. {{DISCLOSURE}} Använd länken nedan för att betala.
+
+{{PAY_LINK}}
+
+Med vänliga hälsningar,
+{{MERCHANT_NAME}}

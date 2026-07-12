@@ -1,0 +1,8 @@
+Beste {{CUSTOMER_NAME}},
+
+dit is een herinnering dat factuur {{ACCOUNT_REF}} van {{AMOUNT}}, met vervaldatum {{DUE_DATE}}, nog niet is betaald. {{DISCLOSURE}} Gebruik onderstaande link om te betalen.
+
+{{PAY_LINK}}
+
+Met vriendelijke groet,
+{{MERCHANT_NAME}}

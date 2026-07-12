@@ -1,0 +1,1 @@
+Reminder: your payment of {{AMOUNT}} due {{DUE_DATE}} has not been received. {{DISCLOSURE}} Pay here: {{PAY_LINK}} - {{MERCHANT_NAME}}

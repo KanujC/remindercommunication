@@ -1,0 +1,1 @@
+Hi {{CUSTOMER_NAME}}, your payment of {{AMOUNT}} due {{DUE_DATE}} is still open. {{DISCLOSURE}} Pay here: {{PAY_LINK}} - {{MERCHANT_NAME}}

@@ -1,0 +1,1 @@
+Ihre Zahlung von {{AMOUNT}}, fällig am {{DUE_DATE}}, ist weiterhin offen. {{DISCLOSURE}} Jetzt zahlen: {{PAY_LINK}} - {{MERCHANT_NAME}}

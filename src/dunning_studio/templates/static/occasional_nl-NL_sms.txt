@@ -1,0 +1,1 @@
+Herinnering: uw betaling van {{AMOUNT}}, met vervaldatum {{DUE_DATE}}, is nog niet ontvangen. {{DISCLOSURE}} Betaal hier: {{PAY_LINK}} - {{MERCHANT_NAME}}

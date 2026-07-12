@@ -1,0 +1,1 @@
+Hoi {{CUSTOMER_NAME}}, uw betaling van {{AMOUNT}}, met vervaldatum {{DUE_DATE}}, staat nog open. {{DISCLOSURE}} Betaal hier: {{PAY_LINK}} - {{MERCHANT_NAME}}

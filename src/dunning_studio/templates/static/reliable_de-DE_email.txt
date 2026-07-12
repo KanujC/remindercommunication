@@ -1,0 +1,8 @@
+Sehr geehrte(r) {{CUSTOMER_NAME}},
+
+wir hoffen, es geht Ihnen gut. Unsere Unterlagen zeigen, dass die Rechnung mit der Referenz {{ACCOUNT_REF}} über {{AMOUNT}}, fällig am {{DUE_DATE}}, noch offen ist. {{DISCLOSURE}} Sie können diese über den folgenden Link begleichen.
+
+{{PAY_LINK}}
+
+Mit freundlichen Grüßen,
+{{MERCHANT_NAME}}

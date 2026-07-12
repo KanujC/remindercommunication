@@ -1,0 +1,8 @@
+Sehr geehrte(r) {{CUSTOMER_NAME}},
+
+dies ist eine Erinnerung, dass die Rechnung {{ACCOUNT_REF}} über {{AMOUNT}}, fällig am {{DUE_DATE}}, noch nicht beglichen wurde. {{DISCLOSURE}} Bitte nutzen Sie den folgenden Link zur Zahlung.
+
+{{PAY_LINK}}
+
+Mit freundlichen Grüßen,
+{{MERCHANT_NAME}}

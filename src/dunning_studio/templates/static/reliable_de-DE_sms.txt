@@ -1,0 +1,1 @@
+Hallo {{CUSTOMER_NAME}}, Ihre Zahlung von {{AMOUNT}}, fällig am {{DUE_DATE}}, ist noch offen. {{DISCLOSURE}} Zahlen Sie hier: {{PAY_LINK}} - {{MERCHANT_NAME}}

@@ -1,0 +1,8 @@
+Beste {{CUSTOMER_NAME}},
+
+We hopen dat het goed met u gaat. Uit onze gegevens blijkt dat de factuur met referentie {{ACCOUNT_REF}} van {{AMOUNT}}, met vervaldatum {{DUE_DATE}}, nog openstaat. {{DISCLOSURE}} U kunt deze betalen via onderstaande link.
+
+{{PAY_LINK}}
+
+Met vriendelijke groet,
+{{MERCHANT_NAME}}

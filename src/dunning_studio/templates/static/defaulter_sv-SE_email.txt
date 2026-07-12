@@ -1,0 +1,8 @@
+Hej {{CUSTOMER_NAME}},
+
+fakturan {{ACCOUNT_REF}} på {{AMOUNT}}, med förfallodatum {{DUE_DATE}}, är fortfarande obetald. {{DISCLOSURE}} Betala nu via länken nedan.
+
+{{PAY_LINK}}
+
+Med vänliga hälsningar,
+{{MERCHANT_NAME}}

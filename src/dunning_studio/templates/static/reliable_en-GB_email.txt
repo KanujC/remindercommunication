@@ -1,0 +1,8 @@
+Dear {{CUSTOMER_NAME}},
+
+We hope you are well. Our records show that an invoice on your account, reference {{ACCOUNT_REF}}, for {{AMOUNT}} was due on {{DUE_DATE}} and remains open. {{DISCLOSURE}} You can settle it using the link below.
+
+{{PAY_LINK}}
+
+Kind regards,
+{{MERCHANT_NAME}}

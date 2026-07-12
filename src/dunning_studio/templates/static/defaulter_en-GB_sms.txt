@@ -1,0 +1,1 @@
+Your payment of {{AMOUNT}} due {{DUE_DATE}} remains unpaid. {{DISCLOSURE}} Pay now: {{PAY_LINK}} - {{MERCHANT_NAME}}

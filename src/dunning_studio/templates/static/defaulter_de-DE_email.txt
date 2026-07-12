@@ -1,0 +1,8 @@
+Sehr geehrte(r) {{CUSTOMER_NAME}},
+
+die Rechnung {{ACCOUNT_REF}} über {{AMOUNT}}, fällig am {{DUE_DATE}}, ist weiterhin offen. {{DISCLOSURE}} Bitte begleichen Sie den Betrag jetzt über den folgenden Link.
+
+{{PAY_LINK}}
+
+Mit freundlichen Grüßen,
+{{MERCHANT_NAME}}

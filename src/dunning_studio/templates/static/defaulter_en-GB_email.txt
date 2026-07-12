@@ -1,0 +1,8 @@
+Dear {{CUSTOMER_NAME}},
+
+Invoice {{ACCOUNT_REF}} for {{AMOUNT}}, due on {{DUE_DATE}}, remains unpaid. {{DISCLOSURE}} Please pay now using the link below.
+
+{{PAY_LINK}}
+
+Regards,
+{{MERCHANT_NAME}}

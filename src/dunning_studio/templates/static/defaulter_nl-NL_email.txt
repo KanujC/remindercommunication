@@ -1,0 +1,8 @@
+Beste {{CUSTOMER_NAME}},
+
+factuur {{ACCOUNT_REF}} van {{AMOUNT}}, met vervaldatum {{DUE_DATE}}, staat nog open. {{DISCLOSURE}} Betaal nu via onderstaande link.
+
+{{PAY_LINK}}
+
+Met vriendelijke groet,
+{{MERCHANT_NAME}}
